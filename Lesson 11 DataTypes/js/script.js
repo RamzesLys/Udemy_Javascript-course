@@ -19,5 +19,4 @@ const obj = {
 
 // console.log(obj['age']);
 
-let arr =  ['plum.png', 'orange.jpeg', 6, 'apple.bmp', {}];
-console.log(arr[1]);
+
