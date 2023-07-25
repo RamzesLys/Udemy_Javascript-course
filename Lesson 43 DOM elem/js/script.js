@@ -15,6 +15,8 @@ const hearts = document.querySelectorAll('.heart');
 
 const wrapper = document.querySelector('.wrapper');
 
+
+
 hearts.forEach(item => {
   //console.log(item);
 })
@@ -46,15 +48,26 @@ const div = document.createElement('div');
 
 
 div.classList.add('black');
+wrapper.append(div); //вставляє дочірній елемент у кінці батьківського
 
-// wrapper.append(div); //вставляє дочірній елемент у кінці батьківського
+
+// wrapper.appendChild(div);
 // wrapper.prepend(div);//вставляє на початку батьківського
 
 // hearts[0].after(div);
 
-// circles[0].remove();
+// circles[0].remove();//видалення елементу
+// wrapper.removeChild(hearts[1])
 
-hearts[0].replaceWith(circles[0])
+// hearts[0].replaceWith(circles[0]);//заміна елементу
 
+// wrapper.insertBefore(div, hearts[1])//вставка елементу, 1-назва елементу, 2-перед яким елементом вставити
+// wrapper.replaceChild(circles[1], hearts[1]);
+
+div.innerHTML = '<h1>Hello World</h1>';//можливо поміщати html-струтуру
+
+// div.textContent = 'Hello'//можливо поміщати лише текст
+
+div.insertAdjacentHTML('afterend'," <h2>Hello</h2>");
 
 
