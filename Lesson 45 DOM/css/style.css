@@ -76,3 +76,7 @@ button {
 	margin-top: 30px;
 	color: #fff;
 }
+
+.overlay {
+   background-color:aquamarine;
+}
