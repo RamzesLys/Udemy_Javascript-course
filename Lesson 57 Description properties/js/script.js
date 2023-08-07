@@ -1,8 +1,10 @@
 'use strict'
+const birthday = Symbol('birthday');
 
 const user = {
   name: 'Alex',
   surname: 'Smith',
+  [birthday]: '20/04/2021',
   showMyPublicData: function() {
     console.log(`${this.name} ${this.surname}`);
   }
@@ -12,6 +14,7 @@ const user = {
 
 // console.log(Object.getOwnPropertyDescriptor(user, 'birthday'));
 
+
 Object.defineProperty(user, 'showMyPublicData', {enumerable: false})
 //тепер showMyPublicData не попадає в перебір
 
@@ -19,6 +22,12 @@ for (let key in user) {
   console.log(key);
 }
 
+console.log(Object.getOwnPropertyDescriptor(user, birthday));
+
+Object.defineProperties(user, {
+  name: {writable: false},
+  surname: {writable: false}
+})
 
 // Object.defineProperty(user, 'birthday', {writable: false})
 //writable:false не дозволяє перезапис даних
@@ -36,3 +45,6 @@ for (let key in user) {
 //writable
 //enumerable
 //configurable
+
+console.log(Object.keys(user));
+console.log(Object.values(user));
