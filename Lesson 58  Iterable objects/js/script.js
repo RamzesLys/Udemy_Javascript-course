@@ -67,5 +67,5 @@ salaries[Symbol.iterator] = function() {
 
 //або
 
-const iterator = salaries[Symbol.iterator]();
+const iterator = salaries[Symbol.iterator];
 console.log(iterator.next());
