@@ -56,8 +56,16 @@ salaries[Symbol.iterator] = function() {
         return {done: false, value: this.current}
       } else {
         return  {done: true}
-      }
-     
+      } 
     }
   }
 }
+
+// for (let res of salaries) {
+//   console.log(res);
+// }
+
+//або
+
+const iterator = salaries[Symbol.iterator]();
+console.log(iterator.next());
