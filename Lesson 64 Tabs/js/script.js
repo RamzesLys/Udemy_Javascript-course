@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     function showTabContent (i = 0) {//якщо викликається без аргументів, то значення по замовчуванню 0
       // tabsContent[i].style.display = 'block';
-      tabsContent[i].classList.add('show', 'fade');
+      tabsContent[i].classList.add('show');
       tabsContent[i].classList.remove('hide');
       tabs[i].classList.add('tabheader__item_active');
     }
