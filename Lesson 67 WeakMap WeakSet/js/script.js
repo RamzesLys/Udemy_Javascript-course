@@ -53,7 +53,24 @@ console.log(7, cache.has(alex));
 //немає get
 
 let messages = [
-  {text: 'Hello', from: 'John'}
-]
+  {text: 'Hello', from: 'John'},
+  {text: 'World', from: 'Alex'},
+  {taxt: '....', from: 'Maria'}
+
+];
+
+let readMessages = new WeakSet();
+
+readMessages.add(messages[0]);
+// readMessages.add(messages[1]);
+
+readMessages.add(messages[0]);
+
+messages.shift();//видаляємо
+
+console.log(8, readMessages.has(messages[0]));
+
+
+
 
 
