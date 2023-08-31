@@ -10,7 +10,6 @@ function getSum(a, b) {
       console.log(this.a);
       return a + b;
   }
-
   console.log(sum());
 }
 
@@ -29,7 +28,6 @@ function showCurrentURL() {
   const extractCurrProtocol = () => {
       return this.protocol;
   }
-
   console.log(`${extractCurrProtocol()}://${extractCurrDomain()}`)
 }
 
