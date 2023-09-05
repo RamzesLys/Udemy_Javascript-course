@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', function() {
 //TABS
   const tabs = document.querySelectorAll('.tabheader__item'),
         tabsContent = document.querySelectorAll('.tabcontent'),
@@ -7,9 +7,8 @@ window.addEventListener('DOMContentLoaded', () => {
   function hideTabContent() {
     tabsContent.forEach((item) => {
       // item.style.display = 'none';
-      item.classList.add('hide');
-      item.classList.remove('show', 'fade');
-
+    item.classList.add('hide');
+    item.classList.remove('show', 'fade');
     });
 
     tabs.forEach((item) => {
@@ -19,7 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function showTabContent (i = 0) {//якщо викликається без аргументів, то значення по замовчуванню 0
     // tabsContent[i].style.display = 'block';
-    tabsContent[i].classList.add('show');
+    tabsContent[i].classList.add('show', 'fade');
     tabsContent[i].classList.remove('hide');
     tabs[i].classList.add('tabheader__item_active');
   }
@@ -27,9 +26,8 @@ window.addEventListener('DOMContentLoaded', () => {
   hideTabContent();
   showTabContent();
 
-  tabsParent.addEventListener('click', (event) => {
+  tabsParent.addEventListener('click', function(event) {
     const target = event.target;
-    
     if (target && target.classList.contains('tabheader__item')) {
       tabs.forEach((item, i) => {
           if (target == item) {
@@ -41,24 +39,16 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   //TIMER
-  const deadline = '2023-08-20';
+  const deadline = '2023-09-14';
 
   function getTimeRemaining(endtime) {
 
     let days, hours, minutes, seconds;
     const t = Date.parse(endtime) - Date.parse(new Date());
-
-    if( t <= 0) {
-      days = 0;
-      hours = 0;
-      minutes = 0;
-      seconds = 0
-    } else {
-      days = Math.floor(t / (1000 * 60 * 60 * 24)),
-      hours = Math.floor((t / (1000 * 60 * 60) % 24)),
-      minutes = Math.floor((t / 1000 / 60) %  60),
-      seconds = Math.floor((t / 1000) % 60);
-    }
+          days = Math.floor(t / (1000 * 60 * 60 * 24)),
+          hours = Math.floor((t / (1000 * 60 * 60) % 24)),
+          minutes = Math.floor((t / 1000 / 60) %  60),
+          seconds = Math.floor((t / 1000) % 60);
           
     return {
       'total': t,
@@ -67,12 +57,11 @@ window.addEventListener('DOMContentLoaded', () => {
       'minutes': minutes,
       'seconds': seconds
     };
-
   }
 
   function getZero (num) {
     if (num >= 0 && num < 10) {
-      return `0${num}`;
+      return '0' + num;
     } else {
       return num
     }
@@ -106,38 +95,37 @@ window.addEventListener('DOMContentLoaded', () => {
 
   //MODAL WINDOWS
   const modalTrigger = document.querySelectorAll('[data-modal]'),
-        modal = document.querySelector('.modal'),
-        modalCloseBtn = document.querySelector('[data-close]');
+        modal = document.querySelector('.modal');
+        // modalCloseBtn = document.querySelector('[data-close]');
 
-  function openModal() {
-    modal.classList.add('show');
-    modal.classList.remove('hide');
-    //через Toggle
-    //modal.classList.toggle('show')
-    document.body.style.overflow = 'hidden';
-    //прибираємо виклик вікна якщо користувач самостійно його викликав та закрив
-    clearInterval(modalTimerId);
-  }
 
-  modalTrigger.forEach((btn) => {
+  modalTrigger.forEach(btn => {
     btn.addEventListener('click', openModal);
   });
 
   //щоб код не повторювався створюємо функцію
   function closeModal() {
-    modal.classList.remove('show');
     modal.classList.add('hide');
+    modal.classList.remove('show');
     document.body.style.overflow = '';
   }
-  
-  modalCloseBtn.addEventListener('click', closeModal);
+
+  function openModal() {
+    modal.classList.add('show');
+    modal.classList.remove('hide');
+    document.body.style.overflow = 'hidden';
+    //прибираємо виклик вікна якщо користувач самостійно його викликав та закрив
+    clearInterval(modalTimerId);
+  }
+
+  // modalCloseBtn.addEventListener('click', closeModal);
 
   //закриття при кліці за межами модального вікна
   modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
+    if (e.target === modal || e.target.getAttribute('data-close' == "")) {
       closeModal()
     }
-  })
+  });
 
   //закриття по клавіші Esc
   document.addEventListener('keydown', (e) => {
@@ -147,7 +135,7 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   //встановлюмо час для відкриття модального вікна
-  const modalTimerId = setTimeout(openModal, 5000);
+  const modalTimerId = setTimeout(openModal, 300000);
   
     //відслідковуємо коли користувач відскролив сторінку до кінця
   function showModalByScroll () {
@@ -160,7 +148,7 @@ window.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', showModalByScroll);
   // }, {once: true}); //виконання коду лише один раз
 
-  //висористання класів для карточок
+  //використання класів для карточок
   class MenuCard {
     constructor(src, alt, title, descr, price, parentSelector, ...classes) { //rest-параметри не підтримують дефолтні значення
       this.src = src;
@@ -186,15 +174,11 @@ window.addEventListener('DOMContentLoaded', () => {
         this.element = 'menu__item';
         element.classList.add(this.element);
       } else {
-        
-        
         //перебираємо масив з классами та кожному елементу призначаємо клас
         this.classes.forEach((className) => {
         element.classList.add(className)
       });
       }
-      
-    
 
       element.innerHTML = 
       // `
@@ -264,50 +248,62 @@ window.addEventListener('DOMContentLoaded', () => {
     'menu__item'
   ).render();
 
-
   //FORMS
   const forms = document.querySelectorAll('.form');
 
   const message = {
-    loading: 'Завантаження',
-    success: `Дякуємо! Ми з Вами зв'яжемося`,
+    loading: 'img/form/spiner.svg',
+    success: 'Дякуємо! Ми з Вами звяжемося',
     failure: 'Щось пішло не так ...'
   };
 
-  forms.forEach((item) => {
+  forms.forEach(item => {
     postData(item)
   });
   
   function postData (form) {
     form.addEventListener('submit', (e) => {
       e.preventDefault(); //прибираємо стандартну поведінку для submit
-
-      const statusMessage = document.createElement('div');
-      statusMessage.classList.add('status');
-      statusMessage.textContent = message.loading;
-      form.append(statusMessage);
+      // const statusMessage = document.createElement('div');
+      // statusMessage.classList.add('status');
+      // statusMessage.textContent = message.loading;
+      // form.append(statusMessage);
+      let statusMessage = document.createElement('img');
+      statusMessage.src = message.loading;
+      statusMessage.style.cssText = `
+          display: block;
+          margin: 0 auto;
+      `;
+      form.insertAdjacentElement('afterend', statusMessage);
       
       const request = new XMLHttpRequest();
       request.open('POST', 'server.php');
-      request.setRequestHeader('Content-type', 'multipart/form-data');//встановлюємо заголовки
-
+      request.setRequestHeader('Content-type', 'application/json; charset=utf-8');//встановлюємо заголовки
+      
       const formData = new FormData(form);
 
-      request.send(formData);
+      const object = {};
+      formData.forEach(function(value, key) {
+        object[key] = value;
+      });
+      const json = JSON.stringify(object)
+
+      request.send(json);
 
       request.addEventListener('load', () => {
         if (request.status === 200) {
           console.log(request.response);
-          statusMessage.textContent = message.succes;
+          showThanksModal(message.success);
+          statusMessage.remove();
+          form.reset();
         } else {
-          statusMessage.textContent = message.failure;
+          showThanksModal(message.failure);
         }
-      })
-
+      });
     });
   }
 
-  function showThanksModal() {
+  function showThanksModal(message) {
     const prevModalDialog = document.querySelector('.modal__dialog');
 
     prevModalDialog.classList.add('hide');
@@ -317,11 +313,18 @@ window.addEventListener('DOMContentLoaded', () => {
     thanksModal.classList.add('modal__dialog');
     thanksModal.innerHTML = `
       <div class="modal__content">
-        <div class="modal__close" data-close>&times;</div>
+        <div class="modal__close" data-close>×</div>
+        <div class="modal__title">${message}</div>
       </div>
-    `
+    `;
+
+    document.querySelector('.modal').append(thanksModal);
+    setTimeout(() => {
+      thanksModal.remove();
+      prevModalDialog.classList.add('show');
+      prevModalDialog.classList.remove ('hide');
+      closeModal();
+    }, 4000)
   }
-
-
 });
 
