@@ -6,7 +6,6 @@ window.addEventListener('DOMContentLoaded', function() {
 
   function hideTabContent() {
     tabsContent.forEach((item) => {
-      // item.style.display = 'none';
     item.classList.add('hide');
     item.classList.remove('show', 'fade');
     });
@@ -97,7 +96,6 @@ window.addEventListener('DOMContentLoaded', function() {
   const modalTrigger = document.querySelectorAll('[data-modal]'),
         modal = document.querySelector('.modal');
         // modalCloseBtn = document.querySelector('[data-close]');
-
 
   modalTrigger.forEach(btn => {
     btn.addEventListener('click', openModal);
@@ -202,8 +200,7 @@ window.addEventListener('DOMContentLoaded', function() {
         <div class="menu__item-cost">Цена:</div>
         <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
       </div>
-      `
-
+      `;
       this.parent.append(element);
     }
   }
@@ -249,10 +246,10 @@ window.addEventListener('DOMContentLoaded', function() {
   ).render();
 
   //FORMS
-  const forms = document.querySelectorAll('.form');
+  const forms = document.querySelectorAll('form');
 
   const message = {
-    loading: 'img/form/spiner.svg',
+    loading: 'img/form/spinner.svg',
     success: 'Дякуємо! Ми з Вами звяжемося',
     failure: 'Щось пішло не так ...'
   };
@@ -271,10 +268,11 @@ window.addEventListener('DOMContentLoaded', function() {
       let statusMessage = document.createElement('img');
       statusMessage.src = message.loading;
       statusMessage.style.cssText = `
-          display: block;
-          margin: 0 auto;
+        display: block;
+        margin: 0 auto;
       `;
-      form.insertAdjacentElement('afterend', statusMessage);
+      // form.append(statusMessage); 
+      form.insertAdjacentElement('afterend', statusMessage);//вставляємо спіннер після форми замість append
       
       const request = new XMLHttpRequest();
       request.open('POST', 'server.php');
@@ -327,4 +325,3 @@ window.addEventListener('DOMContentLoaded', function() {
     }, 4000)
   }
 });
-
