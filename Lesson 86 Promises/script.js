@@ -40,8 +40,8 @@ const test = time => {
     setTimeout(() => 
       resolve(), time
     )
-  })
-} 
+  });
+};
 
 // test(1000).then(() => {
 //   console.log('1000 ms');
@@ -51,11 +51,11 @@ const test = time => {
 //   console.log('2000 ms');
 // })
 
-Promise.all([test(1000), test(2000)]).then(() => {
+Promise.all([test(1000), test(2000)]).then(() => {//спрацювали обидві функції
   console.log('All');
-})
+});
 
 
-// Promise.race([test(1000), test(2000)]).then(() => {
+// Promise.race([test(1000), test(2000)]).then(() => {//спрацьовує після спрацюванні першої з функцій
 //   console.log('All');
 // })
