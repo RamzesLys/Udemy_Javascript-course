@@ -205,45 +205,85 @@ window.addEventListener('DOMContentLoaded', function() {
     }
   }
 
+  const getResource = async (url) => {
+    const res = await fetch(url);
+
+    if (!res.ok) {
+      throw new Error(`Coul not fetch ${url}, status: ${res.status} `);
+    }
+
+    return await res.json();
+  };
+
+  // getResource('http://localhost:3000/menu')
+  //     .then(data => {
+  //       data.forEach(({img, altimg, title, descr, price}) => {
+  //         new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
+  //       });
+  //     });
+
+  //Ще один спосіб (без використання класів)
+  getResource('http://localhost:3000/menu')
+      .then(data => createCard(data));
+
+  function createCard(data ) {
+    data.forEach(({img, altimg, title, descr, price}) => {
+      const element = document.createElement('div');
+      price = Math.round(price * 36,6);
+      element.classList.add('menu__item');
+      element.innerHTML = `
+      <img src=${img} alt=${altimg} >
+      <h3 class="menu__item-subtitle">${title}</h3>
+      <div class="menu__item-descr">${descr}</div>
+      <div class="menu__item-divider"></div>
+      <div class="menu__item-price">
+        <div class="menu__item-cost">Цена:</div>
+        <div class="menu__item-total"><span>${price}</span> грн/день</div>
+      </div>
+      `;
+      document.querySelector('.menu .container').append(element)
+    });
+  } 
+
   //один з варіантів
   //const div = new MenuCard();
   //div.render()
 
-  new MenuCard(
-    "img/tabs/vegy.jpg",
-    "Vegy",
-    'Меню "Фітнес"',
-    `Меню «Фітнес» - це новий підхід до приготування страв: більше свіжих овочів 
-    і фруктів. Продукт активних і здорових людей. Це абсолютно новий продукт 
-    з оптимальною ціною та високою якістю!`,
-    9.2,
-    ".menu .container",
-    'menu__item',
-    'big'
-  ).render();
+  // new MenuCard(
+  //   "img/tabs/vegy.jpg",
+  //   "Vegy",
+  //   'Меню "Фітнес"',
+  //   `Меню «Фітнес» - це новий підхід до приготування страв: більше свіжих овочів 
+  //   і фруктів. Продукт активних і здорових людей. Це абсолютно новий продукт 
+  //   з оптимальною ціною та високою якістю!`,
+  //   9.2,
+  //   ".menu .container",
+  //   'menu__item',
+  //   'big'
+  // ).render();
 
-  new MenuCard(
-    "img/tabs/post.jpg",
-    "Post",
-    'Меню "Пісне"',
-    `Меню "Пісне" - це ретельний підбір інгредієнтів: повна відсутність продуктів 
-    тваринного походження, молоко з мигдалю, вівса, кокосу чи гречки, правильна кількість 
-    білків за рахунок тофу та імпортних вегетаріанських стейків`,
-    12.2,
-    ".menu .container",
-    'menu__item'
-  ).render();
+  // new MenuCard(
+  //   "img/tabs/post.jpg",
+  //   "Post",
+  //   'Меню "Пісне"',
+  //   `Меню "Пісне" - це ретельний підбір інгредієнтів: повна відсутність продуктів 
+  //   тваринного походження, молоко з мигдалю, вівса, кокосу чи гречки, правильна кількість 
+  //   білків за рахунок тофу та імпортних вегетаріанських стейків`,
+  //   12.2,
+  //   ".menu .container",
+  //   'menu__item'
+  // ).render();
 
-  new MenuCard(
-    "img/tabs/elite.jpg",
-    "elite",
-    'Меню "Преміум"',
-    `У меню "Преміум" ми використовуємо не лише гарний дизайн упаковки, але й якісне виконання страв. 
-    Червона риба, морепродукти, фрукти – ресторанне меню без походу до ресторану!`,
-    12.2,
-    ".menu .container",
-    'menu__item'
-  ).render();
+  // new MenuCard(
+  //   "img/tabs/elite.jpg",
+  //   "elite",
+  //   'Меню "Преміум"',
+  //   `У меню "Преміум" ми використовуємо не лише гарний дизайн упаковки, але й якісне виконання страв. 
+  //   Червона риба, морепродукти, фрукти – ресторанне меню без походу до ресторану!`,
+  //   12.2,
+  //   ".menu .container",
+  //   'menu__item'
+  // ).render();
 
   //FORMS
   const forms = document.querySelectorAll('form');
