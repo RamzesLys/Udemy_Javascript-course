@@ -8,7 +8,7 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "json-server": "^0.17.3"
   }
 }
