@@ -551,13 +551,20 @@ window.addEventListener('DOMContentLoaded', function() {
     dots.push(dot);
   }
 
-
+  //функція для перетворення строки у числовий тип даних (+width)
+  function deleteNotDigits(str) {
+    return +str.replace(/\D/g, '') //видаляються не цифри (px)
+  }
   
   next.addEventListener('click', () => {
-    if (offset == +width.slice(0, width.length - 2) * (slides.length - 1)) {//width.slice(0, width.length - 2) прибираємо px у значенні
-      offset = 0;
+    // if (offset == +width.slice(0, width.length - 2) * (slides.length - 1)) {//width.slice(0, width.length - 2) прибираємо px у значенні
+    //робимо через регулярні висловлювання 
+    //if (offset = +width.replace(/\D/g, '') * (slides.length -1)) {
+      //або через функцію
+    if (offset = deleteNotDigits(width) * (slides.length -1)) {
+    offset = 0;
     } else {
-      offset += +width.slice(0, width.length - 2);
+      offset += deleteNotDigits(width);
     }
     
     slidesField.style.transform = `translateX(-${offset}px)`;
@@ -580,9 +587,9 @@ window.addEventListener('DOMContentLoaded', function() {
 
   prev.addEventListener('click', () => {
     if (offset == 0) {//width.slice(0, width.length - 2) прибираємо px у значенні
-      offset = +width.slice(0, width.length - 2) * (slides.length - 1);
+      offset = deleteNotDigits(width) * (slides.length - 1); //замість +width.slice(0, width.length - 2)
     } else {
-      offset -= +width.slice(0, width.length - 2);
+      offset -= deleteNotDigits(width);
     }
     slidesField.style.transform = `translateX(-${offset}px)`;
 
@@ -606,7 +613,7 @@ window.addEventListener('DOMContentLoaded', function() {
     dot.addEventListener('click', (e) => {
       const slideTo = e.target.getAttribute('data-slide-to');
       slideIndex = slideTo;
-      offset = +width.slice(0, width.length - 2) * (slideTo - 1);
+      offset = deleteNotDigits(width) * (slideTo - 1);
       slidesField.style.transform = `translateX(-${offset}px)`;
 
       if (slides.length < 10) {
