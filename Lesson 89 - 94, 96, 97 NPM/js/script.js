@@ -689,7 +689,9 @@ window.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  getDinamicInformation()
+  getDinamicInformation('#height');
+  getDinamicInformation('#weight');
+  getDinamicInformation('#age')
 
 
 });
