@@ -426,7 +426,9 @@ window.addEventListener('DOMContentLoaded', function() {
       .then(res => console.log(res));
 
       //SLIDER
+  let offset = 0;
   let slideIndex = 1;
+
 
   const slides = document.querySelectorAll('.offer__slide'),
         slider = document.querySelector('.offer__slider'),
@@ -436,10 +438,10 @@ window.addEventListener('DOMContentLoaded', function() {
         current = document.querySelector('#current'),
 
         //СЛАЙД 2
-        sliderWrapper = document.querySelector('.offer__slider-wrapper'),
+        slidesWrapper = document.querySelector('.offer__slider-wrapper'),
         slidesField = document.querySelector('.offer__slider-inner'),
-        width = window.getComputedStyle(sliderWrapper).width;
-  let offset = 0;
+        width = window.getComputedStyle(slidesWrapper).width;
+
 
   
 
@@ -500,7 +502,8 @@ window.addEventListener('DOMContentLoaded', function() {
   slidesField.style.width = 100 * slides.length + '%';
   slidesField.style.display = 'flex';
   slidesField.style.transition = '0.5s all';
-  sliderWrapper.style.overflow = 'hidden';
+
+  slidesWrapper.style.overflow = 'hidden';
 
   slides.forEach(slide => {
     slide.style.width = width;
@@ -561,7 +564,7 @@ window.addEventListener('DOMContentLoaded', function() {
     //робимо через регулярні висловлювання 
     //if (offset = +width.replace(/\D/g, '') * (slides.length -1)) {
       //або через функцію
-    if (offset = deleteNotDigits(width) * (slides.length -1)) {
+    if (offset == (deleteNotDigits(width) * (slides.length -1))) {
     offset = 0;
     } else {
       offset += deleteNotDigits(width);
@@ -591,6 +594,7 @@ window.addEventListener('DOMContentLoaded', function() {
     } else {
       offset -= deleteNotDigits(width);
     }
+
     slidesField.style.transform = `translateX(-${offset}px)`;
 
     if (slideIndex == 1) {
@@ -626,6 +630,66 @@ window.addEventListener('DOMContentLoaded', function() {
       dots[slideIndex - 1].style.opacity = 1;
     });
   });
+
+  //CALCULATOR
+
+  const result = document.querySelector('.calculating__result span');
+  let sex, height, weight, age, ratio;
+
+  function calcTotal() {
+    if (!sex || !height || !weight, !age || !ratio) {
+      result.textContent = '___';
+      return;
+    } 
+    
+    if (sex === 'female') {
+      result.textContent = (447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age)) * ratio;
+    } else {
+      result.textContent = (88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age)) * ratio
+    }
+  }
+
+  calcTotal();
+
+  function getStaticInformation (parentSelector, activeClass) {
+    const element = document.querySelectorAll(`${parentSelector} div`);
+
+    document.querySelector(parentSelector).addEventListener('click', (e) => {
+      if (e.target.getAttribute('data-ratio')) {
+        ratio = +e.target.getAttribute('data-ratio');
+      } else {
+        sex = e.target.getAttribute('id')
+      }
+
+      console.log(ratio, sex);
+
+      element.forEach( elem => {
+        elem.classList.remove(activeClass);
+      });
+      e.target.classList.add(activeClass);
+    });
+  }
+  getStaticInformation('#gender', 'calculating__choose-item_active');
+  getStaticInformation('.calculating__choose_big', 'calculating__choose-item_active');
+
+  function getDinamicInformation (selector) {
+    const input = document.querySelector(selector);
+    input.addEventListener('input', () => {
+      switch (getAttribute('id')) {
+        case 'height': 
+          height = +input.value;
+          break;
+        case 'weight':
+          weight = +input.value;
+          break;
+        case 'age':
+          age = +input.value;
+          break;
+      }
+    });
+  }
+
+  getDinamicInformation()
 
 
 });
