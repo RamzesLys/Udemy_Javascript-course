@@ -705,6 +705,7 @@ window.addEventListener('DOMContentLoaded', function() {
            // записуємо вибрану стать у LocaL Storage
            localStorage.setItem('sex', e.target.getAttribute('id'));
         }
+
         elements.forEach( elem => {
           elem.classList.remove(activeClass);
         });
@@ -712,11 +713,11 @@ window.addEventListener('DOMContentLoaded', function() {
   
         calcTotal();
       });
-    })
+    });
   }
 
   getStaticInformation('#gender div', 'calculating__choose-item_active');
-  getStaticInformation('.calculating__choose_big', 'calculating__choose-item_active');
+  getStaticInformation('.calculating__choose_big div', 'calculating__choose-item_active');
 
   function getDinamicInformation (selector) {
     const input = document.querySelector(selector);
