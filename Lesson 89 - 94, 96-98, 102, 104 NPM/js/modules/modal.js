@@ -1,37 +1,39 @@
-function modal() {
-  const modalTrigger = document.querySelectorAll('[data-modal]'),
-        modal = document.querySelector('.modal');
+function closeModal(modalSelector) {
+  const modal = document.querySelector(modalSelector);
+  modal.classList.add('hide');
+  modal.classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function openModal(modalSelector) {
+  const modal = document.querySelector(modalSelector);
+  modal.classList.add('show');
+  modal.classList.remove('hide');
+  document.body.style.overflow = 'hidden';
+  //прибираємо виклик вікна якщо користувач самостійно його викликав та закрив
+  clearInterval(modalTimerId);
+}
+
+function modal(triggerSelector, modalSelector) {
+  const modalTrigger = document.querySelectorAll(triggerSelector),
+        modal = document.querySelector(modalSelector);
 
   modalTrigger.forEach(btn => {
-    btn.addEventListener('click', openModal);
+    btn.addEventListener('click', () => openModal(modalSelector));
   });
 
-  //щоб код не повторювався створюємо функцію
-  function closeModal() {
-    modal.classList.add('hide');
-    modal.classList.remove('show');
-    document.body.style.overflow = '';
-  }
-
-  function openModal() {
-    modal.classList.add('show');
-    modal.classList.remove('hide');
-    document.body.style.overflow = 'hidden';
-    //прибираємо виклик вікна якщо користувач самостійно його викликав та закрив
-    clearInterval(modalTimerId);
-  }
 
   //закриття при кліці за межами модального вікна
   modal.addEventListener('click', (e) => {
     if (e.target === modal || e.target.getAttribute('data-close') == "") {
-      closeModal()
+      closeModal(modalSelector)
     }
   });
 
   //закриття по клавіші Esc
   document.addEventListener('keydown', (e) => {
     if (e.code === 'Escape' && modal.classList.contains('show')) {
-      closeModal()
+      closeModal(modalSelector)
     }
   });
 
@@ -41,7 +43,7 @@ function modal() {
     //відслідковуємо коли користувач відскролив сторінку до кінця
   function showModalByScroll () {
     if (window.scrollY + document.documentElement.clientHeight  >= document.documentElement.scrollHeight - 1) { 
-      openModal();
+      openModal(modalSelector);
       window.removeEventListener('scroll', showModalByScroll)
     }
   }
@@ -50,4 +52,6 @@ function modal() {
   // }, {once: true}); //виконання коду лише один раз
 }
 
-module.exports = modal;
+export default modal;
+export {closeModal};
+export {openModal}
