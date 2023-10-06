@@ -325,23 +325,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 function closeModal(modalSelector) {
   const modal = document.querySelector(modalSelector);
+
   modal.classList.add('hide');
   modal.classList.remove('show');
   document.body.style.overflow = '';
 }
 
-function openModal(modalSelector) {
+function openModal(modalSelector, modalTimerId) {
   const modal = document.querySelector(modalSelector);
+
   modal.classList.add('show');
   modal.classList.remove('hide');
   document.body.style.overflow = 'hidden';
-  //прибираємо виклик вікна якщо користувач самостійно його викликав та закрив
+  if (modalTimerId) {
+      //прибираємо виклик вікна якщо користувач самостійно його викликав та закрив
   clearInterval(modalTimerId);
+  }
 }
 
-function modal(triggerSelector, modalSelector) {
+function modal(triggerSelector, modalSelector, modalTimerId) {
   const modalTrigger = document.querySelectorAll(triggerSelector),
-        modal = document.querySelector(modalSelector);
+        modal = document.querySelector(modalSelector, modalTimerId);
 
   modalTrigger.forEach(btn => {
     btn.addEventListener('click', () => openModal(modalSelector));
@@ -351,19 +355,16 @@ function modal(triggerSelector, modalSelector) {
   //закриття при кліці за межами модального вікна
   modal.addEventListener('click', (e) => {
     if (e.target === modal || e.target.getAttribute('data-close') == "") {
-      closeModal(modalSelector)
+      closeModal(modalSelector);
     }
   });
 
   //закриття по клавіші Esc
   document.addEventListener('keydown', (e) => {
     if (e.code === 'Escape' && modal.classList.contains('show')) {
-      closeModal(modalSelector)
+      closeModal(modalSelector, modalTimerId);
     }
   });
-
-  //встановлюмо час для відкриття модального вікна
-  const modalTimerId = setTimeout(openModal, 300000);
   
     //відслідковуємо коли користувач відскролив сторінку до кінця
   function showModalByScroll () {
@@ -752,9 +753,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 window.addEventListener('DOMContentLoaded', () => {
+  //встановлюмо час для відкриття модального вікна
+  const modalTimerId = setTimeout(() => (0,_modules_modal__WEBPACK_IMPORTED_MODULE_1__.openModal)('.modal', modalTimerId), 300000);
+
   (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_0__["default"])();
-  (0,_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])('[data-modal]', '.modal');
+  (0,_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])('[data-modal]', '.modal', modalTimerId);
   (0,_modules_calc__WEBPACK_IMPORTED_MODULE_2__["default"])();
   (0,_modules_timer__WEBPACK_IMPORTED_MODULE_3__["default"])();
   (0,_modules_cards__WEBPACK_IMPORTED_MODULE_4__["default"])();
