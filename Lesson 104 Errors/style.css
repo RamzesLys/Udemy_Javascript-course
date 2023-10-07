@@ -1,0 +1,13 @@
+button {
+  display: block;
+  border-radius: 1em;
+  margin: 0 auto;
+  padding: 1em;
+  border: greenyellow 2px solid;
+}
+
+.active {
+  padding: 0.5em;
+  border: red 2px solid;
+}
+
