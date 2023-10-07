@@ -1,3 +1,5 @@
+import {getResource} from '../services/services';
+
 function cards() {
   class MenuCard {
     constructor(src, alt, title, descr, price, parentSelector, ...classes) { //rest-параметри не підтримують дефолтні значення
@@ -40,16 +42,6 @@ function cards() {
       `;
       this.parent.append(element);
     }
-  }
-
-  const getResource = async (url) => {
-    const res = await fetch(url);
-
-    if (!res.ok) {
-      throw new Error(`Coul not fetch ${url}, status: ${res.status} `);
-    }
-
-    return await res.json();
   };
 
   getResource('http://localhost:3000/menu')
