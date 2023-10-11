@@ -1,0 +1,20 @@
+для роботи з Angular:
+- node.js;
+- TypeScript;
+- WebPack;
+- MVC pattern;
+- Angular.
+
+React:
+- JSX;
+- Babel;
+- WebPack;
+- node.js;
+- React.
+
+Vue.js:
+- JS;
+- WebPack;
+- node.js;
+- vue.js.
+
