@@ -1,4 +1,4 @@
-
+import './employees-list-item.css'
 
 const EmployeesListItem = () => {
   return (
@@ -15,7 +15,7 @@ const EmployeesListItem = () => {
         className="btn-trash btn-sm">
           <i className="fas fa-trash"></i>
         </button>
-          <i className="fas fa-trash"></i>
+          {/* <i className="fas fa-trash"></i> */}
       </div>
     </li>
   )
