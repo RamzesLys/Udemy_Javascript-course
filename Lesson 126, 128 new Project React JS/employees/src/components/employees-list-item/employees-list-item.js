@@ -1,10 +1,10 @@
 import './employees-list-item.css'
 
-const EmployeesListItem = () => {
+const EmployeesListItem = (props) => {
   return (
     <li className="list-group-item d-flex justify-content-between">
-      <span className="list-group-item-label">Максим Черниш</span>
-      <input type="text" className="list-group-item-input" defaultValue="1000$" />
+      <span className="list-group-item-label">{props.name}</span>
+      <input type="text" className="list-group-item-input" defaultValue={props.salary + ' $'} />
       <div className="d-flex justify-content-center align-items-center">
         <button type="button"
         className="btn-cookie btn-sm">
