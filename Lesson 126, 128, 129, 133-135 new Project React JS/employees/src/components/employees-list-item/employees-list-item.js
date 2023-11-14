@@ -26,7 +26,7 @@ onMark = () => {
 
 
   render() {
-    const {name, salary} = this.props;
+    const {name, salary, onDelete} = this.props;
     const {increase, mark} = this.state
 
     let classNames = "list-group-item d-flex justify-content-between";
@@ -50,7 +50,8 @@ onMark = () => {
         </button>
         
         <button type="button"
-        className="btn-trash btn-sm">
+        className="btn-trash btn-sm"
+        onClick={onDelete}>
           <i className="fas fa-trash"></i>
         </button>
           <i className="fa-regular fa-star"></i>
