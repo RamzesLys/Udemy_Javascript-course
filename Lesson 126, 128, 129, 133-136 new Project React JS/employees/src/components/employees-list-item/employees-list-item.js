@@ -7,7 +7,7 @@ constructor(props) {
   super(props);
   this.state = {
     increase: false,
-    mark: false
+    rise: false
   }
 }
 
@@ -17,30 +17,28 @@ onIncrease = () => {
   }))
 }
 
-onMark = () => {
-  this.setState(({mark}) => ({
-    mark: !mark
+onRise = () => {
+  this.setState(({rise}) => ({
+   rise: !rise
   }))
 }
 
-
-
   render() {
     const {name, salary, onDelete} = this.props;
-    const {increase, mark} = this.state
+    const {increase, rise} = this.state
 
     let classNames = "list-group-item d-flex justify-content-between";
     if (increase) {
     classNames += ' increase'
   }
 
-  if (mark) {
+  if (rise) {
     classNames += ' like'
   }
 
   return (
     <li className={classNames}>
-      <span onClick={this.onMark}className="list-group-item-label">{name}</span>
+      <span onClick={this.onRise}className="list-group-item-label">{name}</span>
       <input type="text" className="list-group-item-input" defaultValue={salary + ' $'} />
       <div className="d-flex justify-content-center align-items-center">
         <button type="button"
